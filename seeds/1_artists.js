@@ -4,6 +4,7 @@
 exports.seed = function(knex) {
   return knex('artists').del()
     .then(() => {
+      knex.raw("SELECT setval('artists_id_seq', (SELECT MAX(id) FROM artists))");
       return knex('artists').insert([{
         id: 1,
         name: 'Fatima al Qadiri',
@@ -22,4 +23,6 @@ exports.seed = function(knex) {
         profile_url: 'https://cdn2-resources.ableton.com/loop.uploads/filer_public_thumbnails/filer_public/ea/5b/ea5b0d02-7189-4ae6-9aa7-145097b05700/demian_licht_1000x1000.jpg__400x400_q85_crop_subsampling-2_upscale.jpg'
       }]);
     });
+
+
 };

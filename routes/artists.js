@@ -19,16 +19,28 @@ router.get('/artists/:id', (req, res, next) => {
     knex('artists')
     .where('id', req.params.id)
     .first()
-    .then((artist) => {
-      if (!artist) {
+    .then((artists) => {
+      if (!artists) {
         return next();
       }
 
-      res.send(artist);
+      res.send(artists);
     })
     .catch((err) => {
       next(err);
     });
 });
+
+router.post('/artists', (req, res, next) => {
+  knex('artists')
+    .insert({ name: req.body.name }, '*')
+    .then((artists) => {
+      res.send(artists[0]);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 
 module.exports = router;

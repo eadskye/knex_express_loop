@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
@@ -5,7 +7,8 @@ var artists = require('./routes/artists');
 var tracks = require('./routes/tracks');
 
 var app = express();
-
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(express.static(path.join('public')));
 
 app.use(artists);

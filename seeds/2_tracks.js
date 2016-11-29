@@ -4,6 +4,7 @@
 exports.seed = function(knex) {
   return knex('tracks').del()
     .then(() => {
+      knex.raw("SELECT setval('artists_id_seq', (SELECT MAX(id) FROM artists))");
       return knex('tracks').insert([{
         id: 1,
         artist_id: 1,
@@ -54,4 +55,8 @@ exports.seed = function(knex) {
         title: 'Sin',
       }]);
     });
+
+
+
+
 };
